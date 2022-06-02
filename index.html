@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lsita de deputados pelo Partido</title>
+	
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+<div class="col-sm-6">
+	<h2>Lista de deputados a partir do partido </h2>
+
+    <H4>Selecione o partido</H4>
+	<select class="form-control" id="Partido">
+		<option>Selecionar o Partido</option>
+	</select>
+	<br>
+
+    <table>Deputados</table>
+    <br>	<br>	<br>
+	<table>
+        <td id=nome></td>
+    </table>
+	
+</div>
+</div>
+
+</body>
+</html>
+
+<script>
+	$(document).ready(function(){
+		carregar_json('Partido');
+		function carregar_json(id, nome_id){
+			var html = '';
+
+			$.getJSON('https://dadosabertos.camara.leg.br/api/v2/deputados?ordem=ASC&ordenarPor=nome', function(data){
+               
+               
+               
+
+
+				if(id == 'Partido' && nome_id == null){
+					for(var i = 0; i < data.dados.length; i++){
+						html += '<option value='+ data.dados[i].siglaPartido +'>'+ data.dados[i].siglaPartido+'</option>';
+					}
+				}else{
+					for(var i = 0; i < data.dados.length; i++){
+						if(data.dados[i].siglaPartido == nome_id){
+							for(var j = 0; j < data.dados[i].nome.length; j++){
+								html += '<option value='+ data.dados[i].siglaPartido +'>'+data.dados[i].nome[j]+ '</option>';
+							}
+						}
+					}
+				}
+
+
+
+
+                console.log(html);
+                 
+				console.log(data);
+                console.log(nome);
+                console.log(id);
+               
+				$('#'+id).html(html);
+			});
+			
+		}
+
+		$(document).on('change', '#Partido', function(){
+			var nome_id = $(this).val();
+            console.log(nome_id)
+			if(nome_id != null){
+				carregar_json('nome', nome_id);
+			}
+		});
+
+	});
+</script>
