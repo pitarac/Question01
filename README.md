@@ -9,5 +9,5 @@ Crie uma interface que permita selecionar um partido político em uma caixa de s
 • Os partidos devem ser obtidos através da API, consumida em json.
 • Os parlamentares devem ser obtidos através da API, consumida em json.
 
-Coloque em sua resposta o endereço no GitHub onde podemos ler o código fonte de sua solução.
+Teste realizado conteudo index.html
 
